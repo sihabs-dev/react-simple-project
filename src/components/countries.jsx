@@ -7,14 +7,26 @@ const countries = ({ countriesPromise }) => {
   const [visitedCountry, setVisitedCountry] = useState([]);
   const handleVisitedCountry = (country) => {
     console.log(country.name.common);
-    setVisitedCountry((prev) => [...prev, country.name.common]);
+    const isExit = visitedCountry.some(
+      (item) => item.name.common === country.name.common,
+    );
+    if (!isExit) {
+      setVisitedCountry((prev) => [...prev, country]);
+    }
   };
   return (
     <div>
+      <div className="formDiv">
+        <form action="" className="form">
+          <input type="text" placeholder="search country" />
+          <button>Search</button>
+        </form>
+      </div>
       <h2 className="heading2">
-        Countries : {countries.length} &nbsp;&nbsp;&nbsp;&nbsp; Visited:{" "}
+        Countries : {countries.length} &nbsp;&nbsp;&nbsp;&nbsp; Visited :{" "}
         {visitedCountry.length}
-        &nbsp;&nbsp;&nbsp;&nbsp; Not-Visited:22
+        &nbsp;&nbsp;&nbsp;&nbsp; Not-Visited :{" "}
+        {countries.length - visitedCountry.length}
       </h2>
       <div className="cardSection">
         {countries.map((country) => (
